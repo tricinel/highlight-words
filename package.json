@@ -1,0 +1,90 @@
+{
+  "name": "highlight-words",
+  "version": "1.0.0",
+  "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tricinel/highlight-words.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tricinel/highlight-words/issues"
+  },
+  "homepage": "https://github.com/tricinel/highlight-words#readme",
+  "author": "Bogdan Lazar",
+  "license": "MIT",
+  "keywords": [
+    "string",
+    "search",
+    "highlight",
+    "regex"
+  ],
+  "files": [
+    "dist"
+  ],
+  "eslintIgnore": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ],
+  "main": "dist/bundles/highlight-words.js",
+  "module": "dist/lib-esm/index.js",
+  "browser": "highlight-words.umd.js",
+  "scripts": {
+    "prebuild": "cross-env rimraf dist",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test:ci": "jest --runInBand --ci",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "post-checkout": "if [[ $HUSKY_GIT_PARAMS =~ 1$ ]]; then yarn install --frozen-lockfile; fi",
+      "post-merge": "yarn install --frozen-lockfile",
+      "post-rebase": "yarn install --frozen-lockfile",
+      "pre-commit": "precise-commits && lint-staged",
+      "pre-push": "yarn test"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-transform-typescript": "^7.5.5",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.15",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jest": "^22.8.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-watch-typeahead": "^0.3.1",
+    "lint-staged": "^9.2.0",
+    "precise-commits": "^1.0.2",
+    "prettier": "^1.18.2",
+    "release-it": "^12.3.5",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-copy": "^3.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.22.0",
+    "typescript": "^3.5.3"
+  }
+}
