@@ -48,7 +48,7 @@ console.log(chunks);
 */
 ```
 
-[Play with this example on Code Sandbox.](https://codesandbox.io/s/sleepy-tu-ijvkg)
+[Play with this example on Code Sandbox.][sandbox-vanilla]
 
 ### Options
 
@@ -85,45 +85,61 @@ By default, the highlighter won't assume any HTML element to wrap matched text, 
 ### React
 
 ```jsx
-<ul>
+<p>
   {chunks.map(({ text, match, key }) =>
     match ? (
-      <li className="highlight" key={key}>
+      <span className="highlight" key={key}>
         {text}
-      </li>
+      </span>
     ) : (
-      <li key={key}>{text}</li>
+      <span key={key}>{text}</span>
     )
   )}
   };
-</ul>
+</p>
 ```
 
-[Play with the React example on Code Sandbox.](https://codesandbox.io/s/vigorous-ramanujan-1h7qw)
+[Play with the React example on Code Sandbox.][sandbox-react]
 
 ### Angular
 
 ```html
-<ul>
-  <li *ngFor="let chunk of chunks; trackBy: key" class="highlight">
+<p>
+  <span *ngFor="let chunk of chunks; trackBy: key" class="highlight">
     {{ chunk.text }}
-  </li>
-</ul>
+  </span>
+</p>
 ```
+
+[Play with the Angular example on Code Sandbox.][sandbox-angular]
 
 ### Vue
 
 ```html
-<ul>
-  <li
+<p>
+  <span
     v-for="chunk in chunks"
     :key="chunk.key"
     v-bind:class="{ active: chunk.match }"
   >
     {{ chunk.text }}
-  </li>
-</ul>
+  </span>
+</p>
 ```
+
+[Play with the Vue example on Code Sandbox.][sandbox-vue]
+
+### Svelte
+
+```html
+<p>
+  {#each chunks as chunk (chunk.key)}
+  <span class:highlight="{chunk.match}">{chunk.text}</span>
+  {/each}
+</p>
+```
+
+[Play with the Svelte example on Code Sandbox.][sandbox-svelte]
 
 ## License
 
@@ -135,3 +151,8 @@ MIT License - fork, modify and use however you want.
 [highlight-words-npm]: https://www.npmjs.com/package/highlight-words
 [npm-downloads-badge]: https://img.shields.io/npm/dt/highlight-words.svg?style=flat-square
 [build-status-badge]: https://img.shields.io/travis/tricinel/highlight-words.svg?style=flat-square
+[sandbox-react]: https://codesandbox.io/s/highlight-words-react-1h7qw
+[sandbox-angular]: https://codesandbox.io/s/highlight-words-angular-xpp46
+[sandbox-vue]: https://codesandbox.io/s/highlight-words-vue-zopni
+[sandbox-svelte]: https://codesandbox.io/s/highlight-words-svelte-ld807
+[sandbox-vanilla]: https://codesandbox.io/s/highlight-words-vanilla-ijvkg
