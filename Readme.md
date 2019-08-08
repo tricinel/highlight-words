@@ -1,5 +1,9 @@
 Give it a piece of text and a search query, and it splits it into chunks separating matches from non-matches, allowing you to highlight the matches, visually or otherwise, in your app.
 
+![Build status][build-status-badge] ![Node Version][node-version-badge]
+![Npm version][npm-version-badge]
+[![Npm downloads][npm-downloads-badge]][highlight-words-npm] ![License][license-badge]
+
 ## Installation
 
 ```
@@ -120,3 +124,10 @@ By default, the highlighter won't assume any HTML element to wrap matched text, 
 ## License
 
 MIT License - fork, modify and use however you want.
+
+[node-version-badge]: https://img.shields.io/node/v/highlight-words.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/highlight-words.svg?style=flat-square
+[npm-version-badge]: https://img.shields.io/npm/v/highlight-words.svg?style=flat-square
+[highlight-words-npm]: https://www.npmjs.com/package/highlight-words
+[npm-downloads-badge]: https://img.shields.io/npm/dt/highlight-words.svg?style=flat-square
+[build-status-badge]: https://img.shields.io/travis/tricinel/highlight-words.svg?style=flat-square
