@@ -42,7 +42,6 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "test:ci": "jest --runInBand --ci",
     "test": "jest",
-    "prerelease": "rollup -c",
     "release": "release-it"
   },
   "husky": {
