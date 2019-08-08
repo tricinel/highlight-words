@@ -99,6 +99,8 @@ By default, the highlighter won't assume any HTML element to wrap matched text, 
 </ul>
 ```
 
+[Play with the React example on Code Sandbox.](https://codesandbox.io/s/vigorous-ramanujan-1h7qw)
+
 ### Angular
 
 ```html
