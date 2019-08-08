@@ -48,6 +48,8 @@ console.log(chunks);
 */
 ```
 
+[Play with this example on Code Sandbox.](https://codesandbox.io/s/sleepy-tu-ijvkg)
+
 ### Options
 
 You can add a few options for the highlighter.
