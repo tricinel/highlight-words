@@ -11,9 +11,6 @@
       "push": true,
       "pushArgs": "--follow-tags",
       "pushRepo": "origin"
-    },
-    "npm": {
-      "publish": false
     }
   }
 }
