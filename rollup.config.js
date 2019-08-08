@@ -27,12 +27,12 @@ export default [
     input,
     output: [
       {
-        name: 'StringSplitter',
-        file: `dist/_bundles/${pkg.name}.umd.js`,
+        name: 'HighlightWords',
+        file: `dist/bundles/${pkg.name}.umd.js`,
         format: 'umd'
       },
       {
-        name: 'StringSplitter',
+        name: 'HighlightWords',
         file: `dist/bundles/${pkg.name}.umd.min.js`,
         format: 'umd'
       }
@@ -53,11 +53,6 @@ export default [
         include: [/^.+\.min\.js$/],
         sourcemap: true,
         output: { comments: false },
-        compress: {
-          keep_infinity: true,
-          pure_getters: true,
-          passes: 10
-        },
         ecma: 5,
         warnings: true
       })

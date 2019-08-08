@@ -30,9 +30,9 @@
     "dist",
     "coverage"
   ],
-  "main": "dist/bundles/highlight-words.js",
+  "main": "dist/lib/index.js",
   "module": "dist/lib-esm/index.js",
-  "browser": "highlight-words.umd.js",
+  "browser": "dist/bundles/highlight-words.js",
   "scripts": {
     "prebuild": "cross-env rimraf dist",
     "build": "rollup -c",
