@@ -13,7 +13,7 @@ const regexpQuery = ({
     throw new TypeError('Expected a string');
   }
 
-  const escapedTerms = escapeRegexp(terms);
+  const escapedTerms = escapeRegexp(terms.trim());
   return `(${matchExactly ? escapedTerms : escapedTerms.split(' ').join('|')})`;
 };
 

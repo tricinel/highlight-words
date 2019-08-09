@@ -34,4 +34,10 @@ describe('Create a string to be used as a regular expression', () => {
       regexpQuery({ terms: {} });
     }).toThrow(TypeError);
   });
+
+  test('Make sure any leading and trailing white space is cut off', () => {
+    expect(regexpQuery({ terms: 'fox ' })).toEqual('(fox)');
+    expect(regexpQuery({ terms: ' fox' })).toEqual('(fox)');
+    expect(regexpQuery({ terms: ' fox ' })).toEqual('(fox)');
+  });
 });
