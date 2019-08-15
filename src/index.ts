@@ -46,6 +46,9 @@ const highlightWords = ({
   clipBy,
   matchExactly = false
 }: HighlightWords.Options): HighlightWords.Chunk[] => {
+  // Let's make sure that the user cannot pass in just a bunch of spaces
+  query = query.trim();
+
   if (query === '') {
     return [
       {

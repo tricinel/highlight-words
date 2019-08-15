@@ -34,6 +34,19 @@ describe('Split a string into an array of chunks', () => {
     );
   });
 
+  test('No matches found if the search term is just a bunch of empty spaces', () => {
+    let text = 'The brown fox jumped over the lazy dog';
+
+    expect(highlightWords({ text, query: '    ' })).toEqual(
+      withKey([
+        {
+          text,
+          match: false
+        }
+      ])
+    );
+  });
+
   test('No matches found in the text', () => {
     let text = 'The brown fox jumped over the lazy dog';
     let query = 'cat';

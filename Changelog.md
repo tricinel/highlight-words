@@ -1,3 +1,9 @@
+###v1.0.4
+
+---
+
+- Small fix to make sure we don't match when the query is just a bunch of white space
+
 ###v1.0.2
 
 ---
