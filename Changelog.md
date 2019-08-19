@@ -1,3 +1,9 @@
+###v1.0.5
+
+---
+
+- Clip now handles the case when both the next and the previous chunks are a match and there are enough words in the current match to clip by
+
 ###v1.0.4
 
 ---
