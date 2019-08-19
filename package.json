@@ -42,6 +42,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "test:ci": "jest --runInBand --ci",
     "test": "jest",
+    "test:mutations": "stryker run",
     "release": "release-it"
   },
   "devDependencies": {
@@ -49,6 +50,10 @@
     "@babel/plugin-transform-typescript": "^7.5.5",
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-typescript": "^7.3.3",
+    "@stryker-mutator/babel-transpiler": "^2.0.2",
+    "@stryker-mutator/core": "^2.0.2",
+    "@stryker-mutator/jest-runner": "^2.0.2",
+    "@stryker-mutator/typescript": "^2.0.2",
     "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",

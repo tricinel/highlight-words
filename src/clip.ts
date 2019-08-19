@@ -16,20 +16,47 @@ export default function clip({
 }: HighlightWords.Clip): string {
   const words = curr.text.split(' ');
   const len = words.length;
-  const ellipsis = len > clipBy ? '...' : '';
 
-  // first we want to leave matches alone
+  // If the current is a match, we leave it alone
+  // Or if the clipBy is greater than or equal to the length of the words, there's nothing to clip
   if (curr.match || clipBy >= len) {
     return curr.text;
-  } else if (next && next.match) {
-    // if we have a next chunk and it's a match
+  }
+
+  // If we have a clipBy greater than the length of the words in the current match,
+  // it means we can clip the words in the current chunk
+  const ellipsis = '...';
+
+  if (prev && prev.match && next && next.match) {
+    // Both the previous and the next chunks are a match
+    // Let's check if we have enough words to clip by on both sides
+    if (len > clipBy * 2) {
+      return [
+        ...words.slice(0, clipBy),
+        ellipsis,
+        ...words.slice(-clipBy)
+      ].join(' ');
+    } else {
+      return curr.text;
+    }
+  }
+
+  // We start to check the next and previous matches in order to
+  // properly position the elipsis
+  if (next && next.match) {
+    // The chunk right after this one is a match
+    // So we need the elipsis at the start of the returned text
+    // so that it sticks correctly to the next (match)'s text
     return [ellipsis, ...words.slice(-clipBy)].join(' ');
-  } else if (prev && prev.match) {
-    // if we have a previous chunk and it's a match
+  }
+
+  if (prev && prev.match) {
+    // The chunk right before this one is a match
+    // So we need the elipsis at the end of the                                 returned text
+    // so that it sticks correctly to the previous (match)'s text
     return [...words.slice(0, clipBy), ellipsis].join(' ');
   }
 
-  // on the off chance that there is no next and no previous chunk
-  // we should really never get here
+  // If we made it this far, just return the text
   return curr.text;
 }

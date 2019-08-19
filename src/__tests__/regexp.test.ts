@@ -33,6 +33,11 @@ describe('Create a string to be used as a regular expression', () => {
       // @ts-ignore
       regexpQuery({ terms: {} });
     }).toThrow(TypeError);
+
+    expect(() => {
+      // @ts-ignore
+      regexpQuery({ terms: {} });
+    }).toThrow(/string/);
   });
 
   test('Make sure any leading and trailing white space is cut off', () => {
