@@ -141,6 +141,59 @@ By default, the highlighter won't assume any HTML element to wrap matched text, 
 
 [Play with the Svelte example on Code Sandbox.][sandbox-svelte]
 
+## A note on accessibility
+
+When we are splitting a piece of text into multiple chunks for the purpose of styling each chunk differently, and then using said chunks **instead** of the original text, we are doing a disservice to our users who might rely on a screen reader. This is because some screen readers will read out the chunks of text individually rather than in one continous flow. For example, if we were to split the text _Eeeh! Help me!_, `highlight-words` will return to us several chunks. We then might decide to wrap each chunk's text in a `span`, like so:
+
+```html
+<p>
+  <span>E</span>
+  <span>e</span>
+  <span>e</span>
+  <span>h! H</span>
+  <span>e</span>
+  <span>lp m</span>
+  <span>e</span>
+  <span>!</span>
+</p>
+```
+
+Some screen readers will announce each letter **e** individually. Not ideal!
+
+Let's make it accessible by using aria attributes to allow screen readers to correctly announce our text.
+
+```html
+<p aria-label="Eeeh! Help me!">
+  <span aria-hidden="true">E</span>
+  <span aria-hidden="true">e</span>
+  <span aria-hidden="true">e</span>
+  <span aria-hidden="true">h! H</span>
+  <span aria-hidden="true">e</span>
+  <span aria-hidden="true">lp m</span>
+  <span aria-hidden="true">e</span>
+  <span aria-hidden="true">!</span>
+</p>
+```
+
+or, for less repetition:
+
+```html
+<p aria-label="Eeeh! Help me!">
+  <span aria-hidden="true">
+    <span>E</span>
+    <span>e</span>
+    <span>e</span>
+    <span>h! H</span>
+    <span>e</span>
+    <span>lp m</span>
+    <span>e</span>
+    <span>!</span>
+  </span>
+</p>
+```
+
+For a much better write-up than I could put together, have a read of [Michelle Barker's How to Accessibly Split Text](https://css-irl.info/how-to-accessibly-split-text).
+
 ## License
 
 MIT License - fork, modify and use however you want.
