@@ -3,7 +3,7 @@ import { HighlightWords } from '..';
 
 describe('Provide the textual context around the matches', () => {
   test("It leaves the chunk alone if it's a match", () => {
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'The quick brown fox jumped',
       match: true
@@ -19,7 +19,7 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test('It leaves the chunk alone if its text word length is smaller or equal to the clipBy', () => {
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'quick brown',
       match: false
@@ -36,13 +36,13 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test('It leaves the chunk alone when the clipBy is greater than the word length', () => {
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'quick brown',
       match: false
     };
 
-    let nextChunk: HighlightWords.Chunk = {
+    const nextChunk: HighlightWords.Chunk = {
       key: '1',
       text: ' over the lazy dog',
       match: true
@@ -59,19 +59,19 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test("It leaves the chunk alone if it's a match and the next and previous are also matches", () => {
-    let previousChunk: HighlightWords.Chunk = {
+    const previousChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'The quick brown ',
       match: true
     };
 
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'fox jumped',
       match: true
     };
 
-    let nextChunk: HighlightWords.Chunk = {
+    const nextChunk: HighlightWords.Chunk = {
       key: '1',
       text: ' over the lazy dog',
       match: true
@@ -88,19 +88,19 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test("It leaves the chunk alone if it's not a match and the next and previous are matches, but there are not enough words to clip by", () => {
-    let previousChunk: HighlightWords.Chunk = {
+    const previousChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'The quick brown ',
       match: true
     };
 
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'fox jumped',
       match: false
     };
 
-    let nextChunk: HighlightWords.Chunk = {
+    const nextChunk: HighlightWords.Chunk = {
       key: '1',
       text: ' over the lazy dog',
       match: true
@@ -117,19 +117,19 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test("It clips the chunk if it's not a match and the next and previous are matches, and there are enough words to clip by", () => {
-    let previousChunk: HighlightWords.Chunk = {
+    const previousChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'The quick ',
       match: true
     };
 
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'brown fox jumped over the lazy',
       match: false
     };
 
-    let nextChunk: HighlightWords.Chunk = {
+    const nextChunk: HighlightWords.Chunk = {
       key: '1',
       text: ' dog',
       match: true
@@ -146,12 +146,12 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test('It clips the chunk if the previous was a match', () => {
-    let previousChunk: HighlightWords.Chunk = {
+    const previousChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'The quick brown',
       match: true
     };
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'fox jumped over',
       match: false
@@ -168,12 +168,12 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test('It clips the chunk if the next was a match', () => {
-    let nextChunk: HighlightWords.Chunk = {
+    const nextChunk: HighlightWords.Chunk = {
       key: '1',
       text: ' the lazy dog',
       match: true
     };
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'fox jumped over',
       match: false
@@ -190,7 +190,7 @@ describe('Provide the textual context around the matches', () => {
   });
 
   test('It returns the current chunk text in all other cases', () => {
-    let currentChunk: HighlightWords.Chunk = {
+    const currentChunk: HighlightWords.Chunk = {
       key: '1',
       text: 'fox jumped over',
       match: false
