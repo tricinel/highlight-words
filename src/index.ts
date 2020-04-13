@@ -1,4 +1,4 @@
-import uuidv4 from './uuidv4';
+import uid from './uid';
 import regexpQuery from './regexp';
 import clip from './clip';
 
@@ -52,7 +52,7 @@ const highlightWords = ({
   if (query === '') {
     return [
       {
-        key: uuidv4(),
+        key: uid(),
         text,
         match: false
       }
@@ -68,8 +68,8 @@ const highlightWords = ({
     .split(searchRegexp) // split the entire thing into an array of matches and non-matches
     .filter(hasLength) //filter any matches that have the text with length of 0
     .map(str => ({
-      // compose the object for a match
-      key: uuidv4(),
+      // Compose the object for a match
+      key: uid(),
       text: str,
       match: matchExactly
         ? str.toLowerCase() === query.toLowerCase()

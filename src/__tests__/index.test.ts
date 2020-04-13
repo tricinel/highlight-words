@@ -1,6 +1,6 @@
 import highlightWords, { HighlightWords } from '..';
 
-jest.mock('../uuidv4', () => () => '1');
+jest.mock('../uid', () => () => '1');
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>; // eslint-disable-line @typescript-eslint/no-type-alias
 type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>; // eslint-disable-line @typescript-eslint/no-type-alias
