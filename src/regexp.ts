@@ -1,4 +1,4 @@
-import { HighlightWords } from './';
+import { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
 
 // We need escape certain characters before creating the RegExp
 // https://github.com/sindresorhus/escape-string-regexp
