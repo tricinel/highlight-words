@@ -2,31 +2,33 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    project: './tsconfig.base.json'
   },
-  plugins: ['jest', '@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'jest'],
   env: {
     browser: true,
     node: true
   },
   extends: [
+    'frontwerk-typescript',
+    'plugin:import/typescript',
     'plugin:jest/recommended',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
   rules: {
+    '@typescript-eslint/no-unsafe-assignment': 'off', // This is too new as of this commit
     'prettier/prettier': 'error',
-    indent: 'off',
-    '@typescript-eslint/indent': ['error', 2],
-    '@typescript-eslint/explicit-function-return-type': [
+    'import/extensions': [
       'error',
+      'ignorePackages',
       {
-        allowExpressions: true
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never'
       }
-    ],
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-namespace': 'off'
+    ]
   }
 };

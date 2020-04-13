@@ -1,13 +1,16 @@
 import highlightWords, { HighlightWords } from '..';
 
-jest.mock('../uuidv4', () => () => '1');
+jest.mock('../uid', () => () => '1');
 
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>;
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>; // eslint-disable-line @typescript-eslint/no-type-alias
+type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>; // eslint-disable-line @typescript-eslint/no-type-alias
+type ReadonlyKeylessChunk = Readonly<KeylessChunk>; // eslint-disable-line @typescript-eslint/no-type-alias
 
-// Let's add the same key to all the chunks
-const withKey = (chunks: KeylessChunk[]): HighlightWords.Chunk[] =>
-  chunks.map(chunk => ({ ...chunk, key: '1' }));
+// const's add the same key to all the chunks
+const withKey = (
+  chunks: readonly ReadonlyKeylessChunk[]
+): HighlightWords.Chunk[] =>
+  chunks.map((chunk: ReadonlyKeylessChunk) => ({ ...chunk, key: '1' }));
 
 describe('Split a string into an array of chunks', () => {
   test('No matches found if the search term and the query are empty', () => {
@@ -22,7 +25,7 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('No matches found if the search term is empty', () => {
-    let text = 'The brown fox jumped over the lazy dog';
+    const text = 'The brown fox jumped over the lazy dog';
 
     expect(highlightWords({ text, query: '' })).toEqual(
       withKey([
@@ -35,7 +38,7 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('No matches found if the search term is just a bunch of empty spaces', () => {
-    let text = 'The brown fox jumped over the lazy dog';
+    const text = 'The brown fox jumped over the lazy dog';
 
     expect(highlightWords({ text, query: '    ' })).toEqual(
       withKey([
@@ -48,8 +51,8 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('No matches found in the text', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'cat';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'cat';
 
     expect(highlightWords({ text, query })).toEqual(
       withKey([
@@ -62,8 +65,8 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('One match found in the middle of the text', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'over';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'over';
 
     expect(highlightWords({ text, query })).toEqual(
       withKey([
@@ -84,8 +87,8 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('One match found at the beginning of the text', () => {
-    let text = 'One brown fox jumped over the lazy dog';
-    let query = 'one';
+    const text = 'One brown fox jumped over the lazy dog';
+    const query = 'one';
 
     expect(highlightWords({ text, query })).toEqual(
       withKey([
@@ -102,8 +105,8 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('One match found at the end of the text', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'dog';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'dog';
 
     expect(highlightWords({ text, query })).toEqual(
       withKey([
@@ -120,8 +123,8 @@ describe('Split a string into an array of chunks', () => {
   });
 
   test('Two matches found in the text', () => {
-    let text = 'The cute brown fox jumped over the cute lazy dog';
-    let query = 'cute';
+    const text = 'The cute brown fox jumped over the cute lazy dog';
+    const query = 'cute';
 
     expect(highlightWords({ text, query })).toEqual(
       withKey([
@@ -152,8 +155,8 @@ describe('Split a string into an array of chunks', () => {
 
 describe('Clipping', () => {
   test('Use clipped text around the non-matches instead of the full text', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'over';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'over';
 
     expect(highlightWords({ text, query, clipBy: 3 })).toEqual(
       withKey([
@@ -176,8 +179,8 @@ describe('Clipping', () => {
 
 describe('Exact matching', () => {
   test('Split a string and match all individual words', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'brown dog';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'brown dog';
 
     expect(highlightWords({ text, query, matchExactly: false })).toEqual(
       withKey([
@@ -202,8 +205,8 @@ describe('Exact matching', () => {
   });
 
   test('Split a string and match exactly the search term', () => {
-    let text = 'The brown fox jumped over the lazy dog';
-    let query = 'brown dog';
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = 'brown dog';
 
     expect(highlightWords({ text, query, matchExactly: true })).toEqual(
       withKey([

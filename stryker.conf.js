@@ -6,7 +6,7 @@ module.exports = function(config) {
     testRunner: 'jest',
     coverageAnalysis: 'off',
     tsconfigFile: 'tsconfig.json',
-    mutate: ['src/**/*.ts', '!src/uuidv4.ts', '!src/**/*.test.ts'],
+    mutate: ['src/**/*.ts', '!src/uid.ts', '!src/**/*.test.ts'],
     babel: {
       optionsFile: '.babelrc'
     }

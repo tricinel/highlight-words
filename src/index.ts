@@ -1,6 +1,6 @@
-import uuidv4 from './uuidv4';
-import regexpQuery from './regexp';
-import clip from './clip';
+import uid from './uid';
+import regexpQuery from './regexp'; // eslint-disable-line import/no-cycle
+import clip from './clip'; // eslint-disable-line import/no-cycle
 
 declare namespace HighlightWords {
   export interface Chunk {
@@ -45,14 +45,14 @@ const highlightWords = ({
   query,
   clipBy,
   matchExactly = false
-}: HighlightWords.Options): HighlightWords.Chunk[] => {
+}: Readonly<HighlightWords.Options>): HighlightWords.Chunk[] => {
   // Let's make sure that the user cannot pass in just a bunch of spaces
-  query = query.trim();
+  const safeQuery = query.trim();
 
-  if (query === '') {
+  if (safeQuery === '') {
     return [
       {
-        key: uuidv4(),
+        key: uid(),
         text,
         match: false
       }
@@ -60,30 +60,32 @@ const highlightWords = ({
   }
 
   const searchRegexp = new RegExp(
-    regexpQuery({ terms: query, matchExactly }),
+    regexpQuery({ terms: safeQuery, matchExactly }),
     'ig'
   );
 
+  type ReadonlyChunk = Readonly<HighlightWords.Chunk>; // eslint-disable-line @typescript-eslint/no-type-alias
+
   return text
-    .split(searchRegexp) // split the entire thing into an array of matches and non-matches
-    .filter(hasLength) //filter any matches that have the text with length of 0
-    .map(str => ({
-      // compose the object for a match
-      key: uuidv4(),
+    .split(searchRegexp) // Split the entire thing into an array of matches and non-matches
+    .filter(hasLength) // Filter any matches that have the text with length of 0
+    .map((str) => ({
+      // Compose the object for a match
+      key: uid(),
       text: str,
       match: matchExactly
-        ? str.toLowerCase() === query.toLowerCase()
+        ? str.toLowerCase() === safeQuery.toLowerCase()
         : searchRegexp.test(str)
     }))
-    .map((chunk, index, chunks) => ({
-      // for each chunk, clip the text if needed
-      ...chunk, // all the props first
-      ...(clipBy && {
-        // we only overwrite the text if there is a clip
+    .map((chunk: ReadonlyChunk, index, chunks: readonly ReadonlyChunk[]) => ({
+      // For each chunk, clip the text if needed
+      ...chunk, // All the props first
+      ...(typeof clipBy === 'number' && {
+        // We only overwrite the text if there is a clip
         text: clip({
-          curr: chunk, // we need the current chunk
-          ...(index < chunks.length - 1 && { next: chunks[index + 1] }), // if this wasn't the last chunk, set the next chunk
-          ...(index > 0 && { prev: chunks[index - 1] }), // if this wasn't the first chunk, set the previous chunk
+          curr: chunk, // We need the current chunk
+          ...(index < chunks.length - 1 && { next: chunks[index + 1] }), // If this wasn't the last chunk, set the next chunk
+          ...(index > 0 && { prev: chunks[index - 1] }), // If this wasn't the first chunk, set the previous chunk
           clipBy
         })
       })
