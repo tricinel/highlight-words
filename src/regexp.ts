@@ -8,7 +8,7 @@ const escapeRegexp = (term: string): string =>
 const regexpQuery = ({
   terms,
   matchExactly = false
-}: HighlightWords.Query): string => {
+}: Readonly<HighlightWords.Query>): string => {
   if (typeof terms !== 'string') {
     throw new TypeError('Expected a string');
   }

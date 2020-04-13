@@ -5,19 +5,30 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.base.json'
   },
-  plugins: ['jest', '@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'jest'],
   env: {
     browser: true,
     node: true
   },
   extends: [
-    'plugin:jest/recommended',
     'frontwerk-typescript',
     'plugin:import/typescript',
+    'plugin:jest/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
   rules: {
-    'prettier/prettier': 'error'
+    '@typescript-eslint/no-unsafe-assignment': 'off', // This is too new as of this commit
+    'prettier/prettier': 'error',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ]
   }
 };

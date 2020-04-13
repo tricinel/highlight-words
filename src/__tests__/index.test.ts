@@ -4,10 +4,13 @@ jest.mock('../uid', () => () => '1');
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>; // eslint-disable-line @typescript-eslint/no-type-alias
 type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>; // eslint-disable-line @typescript-eslint/no-type-alias
+type ReadonlyKeylessChunk = Readonly<KeylessChunk>; // eslint-disable-line @typescript-eslint/no-type-alias
 
 // const's add the same key to all the chunks
-const withKey = (chunks: KeylessChunk[]): HighlightWords.Chunk[] =>
-  chunks.map(chunk => ({ ...chunk, key: '1' }));
+const withKey = (
+  chunks: readonly ReadonlyKeylessChunk[]
+): HighlightWords.Chunk[] =>
+  chunks.map((chunk: ReadonlyKeylessChunk) => ({ ...chunk, key: '1' }));
 
 describe('Split a string into an array of chunks', () => {
   test('No matches found if the search term and the query are empty', () => {

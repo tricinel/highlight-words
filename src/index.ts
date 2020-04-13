@@ -45,7 +45,7 @@ const highlightWords = ({
   query,
   clipBy,
   matchExactly = false
-}: HighlightWords.Options): HighlightWords.Chunk[] => {
+}: Readonly<HighlightWords.Options>): HighlightWords.Chunk[] => {
   // Let's make sure that the user cannot pass in just a bunch of spaces
   const safeQuery = query.trim();
 
@@ -64,10 +64,12 @@ const highlightWords = ({
     'ig'
   );
 
+  type ReadonlyChunk = Readonly<HighlightWords.Chunk>; // eslint-disable-line @typescript-eslint/no-type-alias
+
   return text
     .split(searchRegexp) // Split the entire thing into an array of matches and non-matches
     .filter(hasLength) // Filter any matches that have the text with length of 0
-    .map(str => ({
+    .map((str) => ({
       // Compose the object for a match
       key: uid(),
       text: str,
@@ -75,7 +77,7 @@ const highlightWords = ({
         ? str.toLowerCase() === safeQuery.toLowerCase()
         : searchRegexp.test(str)
     }))
-    .map((chunk, index, chunks) => ({
+    .map((chunk: ReadonlyChunk, index, chunks: readonly ReadonlyChunk[]) => ({
       // For each chunk, clip the text if needed
       ...chunk, // All the props first
       ...(typeof clipBy === 'number' && {
