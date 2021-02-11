@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if [[  =~ 1$ ]]; then yarn install --frozen-lockfile; fi

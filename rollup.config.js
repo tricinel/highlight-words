@@ -1,81 +1,52 @@
-import typescript from 'rollup-plugin-typescript2';
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+import dts from 'rollup-plugin-dts';
+import esbuild from 'rollup-plugin-esbuild';
 
 import pkg from './package.json';
 
-const babelPlugin = babel({
-  exclude: 'node_modules/**'
-});
+const pkgName = pkg.name
+  .split('-')
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join('');
 
-const typescriptOptions = {
-  typescript: require('typescript'),
-  tsconfig: './tsconfig.build.json',
-  tsconfigOverride: {
-    compilerOptions: {
-      module: 'esnext'
-    }
+function pathForBuild(format, production) {
+  const ext = `${production ? '.min' : ''}.${format === 'dts' ? 'd.ts' : 'js'}`;
+  switch (format) {
+    case 'umd':
+      return `dist/bundles/${pkg.name}${ext}`;
+    case 'es':
+      return `dist/lib-esm/${pkg.name}${ext}`;
+    case 'dts':
+      return `dist/${pkg.name}${ext}`;
+
+    // cjs
+    default:
+      return `dist/lib/${pkg.name}${ext}`;
   }
-};
+}
 
-const input = 'src/index.ts';
+function bundle(format, production) {
+  return {
+    input: 'src/index.ts',
+    output: {
+      name: pkgName,
+      file: pathForBuild(format, production),
+      format,
+      sourcemap: format !== 'dts',
+      exports: format === 'cjs' ? 'named' : 'default'
+    },
+    plugins: format === 'dts' ? [dts()] : [esbuild({ minify: production })],
+    external: (id) => !/^[./]/.test(id)
+  };
+}
 
-export default [
-  {
-    input,
-    output: [
-      {
-        name: 'HighlightWords',
-        file: `dist/bundles/${pkg.name}.umd.js`,
-        format: 'umd'
-      },
-      {
-        name: 'HighlightWords',
-        file: `dist/bundles/${pkg.name}.umd.min.js`,
-        format: 'umd'
-      }
-    ],
-    plugins: [
-      resolve(),
-      commonjs(),
-      babelPlugin,
-      typescript({
-        ...typescriptOptions,
-        tsconfigOverride: {
-          compilerOptions: {
-            declaration: false
-          }
-        }
-      }),
-      terser({
-        include: [/^.+\.min\.js$/],
-        sourcemap: true,
-        output: { comments: false },
-        ecma: 5,
-        warnings: true
-      })
-    ]
-  },
-  {
-    input,
-    output: [
-      {
-        dir: `dist/lib`,
-        format: 'cjs'
-      }
-    ],
-    plugins: [babelPlugin, typescript(typescriptOptions)]
-  },
-  {
-    input,
-    output: [
-      {
-        dir: `dist/lib-esm`,
-        format: 'esm'
-      }
-    ],
-    plugins: [babelPlugin, typescript(typescriptOptions)]
-  }
+const bundles = [
+  bundle('dts'),
+  bundle('es'),
+  bundle('cjs'),
+  bundle('umd'),
+  bundle('es', true),
+  bundle('cjs', true),
+  bundle('umd', true)
 ];
+
+export default bundles;
