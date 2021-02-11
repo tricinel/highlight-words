@@ -203,7 +203,7 @@ MIT License - fork, modify and use however you want.
 [npm-version-badge]: https://img.shields.io/npm/v/highlight-words.svg?style=flat-square
 [highlight-words-npm]: https://www.npmjs.com/package/highlight-words
 [npm-downloads-badge]: https://img.shields.io/npm/dt/highlight-words.svg?style=flat-square
-[build-status-badge]: https://img.shields.io/travis/tricinel/highlight-words.svg?style=flat-square
+[build-status-badge]: https://img.shields.io/circleci/build/github/tricinel/cuddy?label=circleci&style=flat-square
 [sandbox-react]: https://codesandbox.io/s/highlight-words-react-1h7qw
 [sandbox-angular]: https://codesandbox.io/s/highlight-words-angular-xpp46
 [sandbox-vue]: https://codesandbox.io/s/highlight-words-vue-zopni
