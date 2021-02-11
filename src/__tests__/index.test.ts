@@ -1,8 +1,8 @@
-import highlightWords, { HighlightWords } from '..';
+import highlightWords from '..';
+import type { HighlightWords } from '..';
 
 jest.mock('../uid', () => () => '1');
 
-type Omit<T, K> = Pick<T, Exclude<keyof T, K>>; // eslint-disable-line @typescript-eslint/no-type-alias
 type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>; // eslint-disable-line @typescript-eslint/no-type-alias
 type ReadonlyKeylessChunk = Readonly<KeylessChunk>; // eslint-disable-line @typescript-eslint/no-type-alias
 

@@ -1,9 +1,13 @@
 /* eslint complexity: ["error", { "max": 12 }] */
-import { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
+import type { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
 
 const hasProp = <T>(prop: string) => (obj: T) =>
   obj !== null && typeof obj !== 'undefined' && prop in obj;
 const hasMatch = hasProp<HighlightWords.Chunk>('match');
+
+const chunkExists = (
+  chunk: HighlightWords.Chunk | undefined
+): chunk is HighlightWords.Chunk => typeof chunk !== 'undefined';
 
 /**
  * This provides context around a chunk's text, based on the next and previous chunks.
@@ -32,7 +36,12 @@ export default function clip({
   // it means we can clip the words in the current chunk
   const ellipsis = '...';
 
-  if (hasMatch(prev) && hasMatch(next)) {
+  if (
+    chunkExists(next) &&
+    chunkExists(prev) &&
+    hasMatch(prev) &&
+    hasMatch(next)
+  ) {
     // Both the previous and the next chunks are a match
     // Let's check if we have enough words to clip by on both sides
     if (len > clipBy * 2) {
@@ -48,14 +57,14 @@ export default function clip({
 
   // We start to check the next and previous matches in order to
   // properly position the elipsis
-  if (hasMatch(next)) {
+  if (chunkExists(next) && hasMatch(next)) {
     // The chunk right after this one is a match
     // So we need the elipsis at the start of the returned text
     // so that it sticks correctly to the next (match)'s text
     return [ellipsis, ...words.slice(-clipBy)].join(' ');
   }
 
-  if (hasMatch(prev)) {
+  if (chunkExists(prev) && hasMatch(prev)) {
     // The chunk right before this one is a match
     // So we need the elipsis at the end of the                                 returned text
     // so that it sticks correctly to the previous (match)'s text

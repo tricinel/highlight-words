@@ -30,12 +30,12 @@ describe('Create a string to be used as a regular expression', () => {
 
   test('Throw an error when trying to create a regexp not from a string', () => {
     expect(() => {
-      // @ts-ignore
+      // @ts-expect-error terms should be string
       regexpQuery({ terms: {} });
     }).toThrow(TypeError);
 
     expect(() => {
-      // @ts-ignore
+      // @ts-expect-error terms should be string
       regexpQuery({ terms: {} });
     }).toThrow(/string/);
   });

@@ -1,5 +1,5 @@
 import clip from '../clip';
-import { HighlightWords } from '..';
+import type { HighlightWords } from '..';
 
 describe('Provide the textual context around the matches', () => {
   test("It leaves the chunk alone if it's a match", () => {
@@ -11,9 +11,7 @@ describe('Provide the textual context around the matches', () => {
 
     expect(
       clip({
-        curr: currentChunk,
-        next: null,
-        prev: null
+        curr: currentChunk
       })
     ).toEqual('The quick brown fox jumped');
   });
@@ -28,8 +26,6 @@ describe('Provide the textual context around the matches', () => {
     expect(
       clip({
         curr: currentChunk,
-        next: null,
-        prev: null,
         clipBy: 2
       })
     ).toEqual('quick brown');
@@ -52,7 +48,6 @@ describe('Provide the textual context around the matches', () => {
       clip({
         curr: currentChunk,
         next: nextChunk,
-        prev: null,
         clipBy: 10
       })
     ).toEqual('quick brown');
@@ -160,7 +155,6 @@ describe('Provide the textual context around the matches', () => {
     expect(
       clip({
         curr: currentChunk,
-        next: null,
         prev: previousChunk,
         clipBy: 2
       })
@@ -183,7 +177,6 @@ describe('Provide the textual context around the matches', () => {
       clip({
         curr: currentChunk,
         next: nextChunk,
-        prev: null,
         clipBy: 2
       })
     ).toEqual('... jumped over');
@@ -199,8 +192,6 @@ describe('Provide the textual context around the matches', () => {
     expect(
       clip({
         curr: currentChunk,
-        next: null,
-        prev: null,
         clipBy: 2
       })
     ).toEqual('fox jumped over');

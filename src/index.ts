@@ -2,6 +2,7 @@ import uid from './uid';
 import regexpQuery from './regexp'; // eslint-disable-line import/no-cycle
 import clip from './clip'; // eslint-disable-line import/no-cycle
 
+/* eslint-disable import/no-unused-modules */
 declare namespace HighlightWords {
   export interface Chunk {
     key: string;
@@ -18,8 +19,8 @@ declare namespace HighlightWords {
 
   export interface Clip {
     curr: Chunk;
-    next: Chunk;
-    prev: Chunk;
+    next?: Chunk;
+    prev?: Chunk;
     clipBy?: number;
   }
 
@@ -30,6 +31,7 @@ declare namespace HighlightWords {
 }
 
 export { HighlightWords };
+/* eslint-enable import/no-unused-modules */
 
 const hasLength = (str: string): boolean => str.length > 0;
 
