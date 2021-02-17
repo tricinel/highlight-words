@@ -1,3 +1,10 @@
+### v1.1.0
+
+---
+
+- Switch to new build system
+- Drop umd support
+
 ### v1.0.6
 
 ---
