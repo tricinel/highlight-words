@@ -1,6 +1,6 @@
 {
   "name": "highlight-words",
-  "version": "1.1.0-beta1",
+  "version": "1.1.0-beta2",
   "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
   "engines": {
     "node": ">= 12",
@@ -30,9 +30,8 @@
     "dist",
     "coverage"
   ],
-  "main": "dist/lib/index.js",
-  "module": "dist/lib-esm/index.js",
-  "browser": "dist/bundles/highlight-words.js",
+  "main": "dist/highlight-words.js",
+  "module": "dist/highlight-words.mjs",
   "typings": "dist/highlight-words.d.ts",
   "scripts": {
     "prebuild": "cross-env rimraf dist",
