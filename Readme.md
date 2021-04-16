@@ -30,17 +30,17 @@ console.log(chunks);
 /*
 [
   {
-    id: '62acb210-76dd-4682-b948-8d359a966dcb'
+    key: '62acb210-76dd-4682-b948-8d359a966dcb'
     text: 'The brown fox jumped ',
     match: false
   },
   {
-    id: '69779adf-6d7c-45ec-ae9b-49d0cb292e28';
+    key: '69779adf-6d7c-45ec-ae9b-49d0cb292e28';
     text: 'over',
     match: true
   },
   {
-    id: '46c5b7a0-5414-47c5-81ba-2496f33fe2f6';
+    key: '46c5b7a0-5414-47c5-81ba-2496f33fe2f6';
     text: ' the lazy dog',
     match: false
   }
