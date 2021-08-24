@@ -1,4 +1,4 @@
-import regexpQuery from '../regexp';
+import buildRegexp, { regexpQuery } from '../regexp';
 
 describe('Create a string to be used as a regular expression', () => {
   test('Create an empty capturing group when the terms is an empty string', () => {
@@ -44,5 +44,44 @@ describe('Create a string to be used as a regular expression', () => {
     expect(regexpQuery({ terms: 'fox ' })).toEqual('(fox)');
     expect(regexpQuery({ terms: ' fox' })).toEqual('(fox)');
     expect(regexpQuery({ terms: ' fox ' })).toEqual('(fox)');
+  });
+});
+
+describe('Build the regular expression', () => {
+  test('Using a string', () => {
+    expect(buildRegexp({ terms: 'quick brown fox' })).toEqual(
+      /(quick|brown|fox)/gi
+    );
+    expect(buildRegexp({ terms: 'quick' })).toEqual(/(quick)/gi);
+  });
+
+  test('Using a regular expression as a string', () => {
+    expect(buildRegexp({ terms: '/(quick)/' })).toEqual(/(quick)/);
+    expect(buildRegexp({ terms: '/(brown)/g' })).toEqual(/(brown)/g);
+    expect(buildRegexp({ terms: '/(fox)/gi' })).toEqual(/(fox)/gi);
+    expect(buildRegexp({ terms: '/com.mycompany.com[.0-9a-z]+/gi' })).toEqual(
+      /com.mycompany.com[.0-9a-z]+/gi
+    );
+  });
+
+  test('Throw if using anything other than a string or regular expression', () => {
+    expect(() => {
+      // @ts-expect-error terms should be string
+      buildRegexp({});
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"Expected terms to be either a string or a RegExp!"`
+    );
+    expect(() => {
+      // @ts-expect-error terms should be string
+      buildRegexp({ terms: [] });
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"Expected terms to be either a string or a RegExp!"`
+    );
+    expect(() => {
+      // @ts-expect-error terms should be string
+      buildRegexp(2);
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"Expected terms to be either a string or a RegExp!"`
+    );
   });
 });

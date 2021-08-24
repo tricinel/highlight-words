@@ -1,5 +1,5 @@
 import uid from './uid';
-import regexpQuery from './regexp'; // eslint-disable-line import/no-cycle
+import buildRegexp from './regexp'; // eslint-disable-line import/no-cycle
 import clip from './clip'; // eslint-disable-line import/no-cycle
 
 /* eslint-disable import/no-unused-modules */
@@ -49,7 +49,7 @@ const highlightWords = ({
   matchExactly = false
 }: Readonly<HighlightWords.Options>): HighlightWords.Chunk[] => {
   // Let's make sure that the user cannot pass in just a bunch of spaces
-  const safeQuery = query.trim();
+  const safeQuery = typeof query === 'string' ? query.trim() : query;
 
   if (safeQuery === '') {
     return [
@@ -61,10 +61,7 @@ const highlightWords = ({
     ];
   }
 
-  const searchRegexp = new RegExp(
-    regexpQuery({ terms: safeQuery, matchExactly }),
-    'ig'
-  );
+  const searchRegexp = buildRegexp({ terms: query, matchExactly });
 
   type ReadonlyChunk = Readonly<HighlightWords.Chunk>; // eslint-disable-line @typescript-eslint/no-type-alias
 

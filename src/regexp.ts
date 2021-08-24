@@ -17,4 +17,22 @@ const regexpQuery = ({
   return `(${matchExactly ? escapedTerms : escapedTerms.split(' ').join('|')})`;
 };
 
-export default regexpQuery;
+const buildRegexp = ({
+  terms,
+  matchExactly = false
+}: Readonly<HighlightWords.Query>): RegExp => {
+  try {
+    const fromString = /^([/~@;%#'])(.*?)\1([gimsuy]*)$/.exec(terms);
+    if (fromString) {
+      return new RegExp(fromString[2], fromString[3]);
+    }
+
+    return new RegExp(regexpQuery({ terms, matchExactly }), 'ig');
+  } catch {
+    throw new TypeError('Expected terms to be either a string or a RegExp!');
+  }
+};
+
+export { regexpQuery };
+
+export default buildRegexp;

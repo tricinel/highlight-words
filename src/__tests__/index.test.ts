@@ -12,44 +12,7 @@ const withKey = (
 ): HighlightWords.Chunk[] =>
   chunks.map((chunk: ReadonlyKeylessChunk) => ({ ...chunk, key: '1' }));
 
-describe('Split a string into an array of chunks', () => {
-  test('No matches found if the search term and the query are empty', () => {
-    expect(highlightWords({ text: '', query: '' })).toEqual(
-      withKey([
-        {
-          text: '',
-          match: false
-        }
-      ])
-    );
-  });
-
-  test('No matches found if the search term is empty', () => {
-    const text = 'The brown fox jumped over the lazy dog';
-
-    expect(highlightWords({ text, query: '' })).toEqual(
-      withKey([
-        {
-          text,
-          match: false
-        }
-      ])
-    );
-  });
-
-  test('No matches found if the search term is just a bunch of empty spaces', () => {
-    const text = 'The brown fox jumped over the lazy dog';
-
-    expect(highlightWords({ text, query: '    ' })).toEqual(
-      withKey([
-        {
-          text,
-          match: false
-        }
-      ])
-    );
-  });
-
+describe('Split a string using another string', () => {
   test('No matches found in the text', () => {
     const text = 'The brown fox jumped over the lazy dog';
     const query = 'cat';
@@ -146,6 +109,132 @@ describe('Split a string into an array of chunks', () => {
         },
         {
           text: ' lazy dog',
+          match: false
+        }
+      ])
+    );
+  });
+});
+
+describe('Split a string using a regular expression', () => {
+  test('Find a match for a specific word', () => {
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = '/(over)/';
+
+    expect(highlightWords({ text, query })).toEqual(
+      withKey([
+        {
+          text: 'The brown fox jumped ',
+          match: false
+        },
+        {
+          text: 'over',
+          match: true
+        },
+        {
+          text: ' the lazy dog',
+          match: false
+        }
+      ])
+    );
+  });
+
+  test('Highlight all the words', () => {
+    const text = 'The brown fox';
+    // eslint-disable-next-line no-useless-escape, prettier/prettier
+    const query = /(\w+)/;
+
+    // @ts-expect-error query should be string
+    expect(highlightWords({ text, query })).toEqual(
+      withKey([
+        {
+          text: 'The',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'brown',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'fox',
+          match: true
+        }
+      ])
+    );
+  });
+
+  test('Highlight all instances of a complex string', () => {
+    const text =
+      'com.mycompany.com.authorization.config com.mycompany.com.core com.mycompany.com.controllers.invoices';
+    const query = '/(com.mycompany.com[.0-9a-z]+)/';
+
+    expect(highlightWords({ text, query })).toEqual(
+      withKey([
+        {
+          text: 'com.mycompany.com.authorization.config',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'com.mycompany.com.core',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'com.mycompany.com.controllers.invoices',
+          match: true
+        }
+      ])
+    );
+  });
+});
+
+describe('Sanity checks for empty strings and invalid cases', () => {
+  test('No matches found if the search term and the query are empty', () => {
+    expect(highlightWords({ text: '', query: '' })).toEqual(
+      withKey([
+        {
+          text: '',
+          match: false
+        }
+      ])
+    );
+  });
+
+  test('No matches found if the search term is empty', () => {
+    const text = 'The brown fox jumped over the lazy dog';
+
+    expect(highlightWords({ text, query: '' })).toEqual(
+      withKey([
+        {
+          text,
+          match: false
+        }
+      ])
+    );
+  });
+
+  test('No matches found if the search term is just a bunch of empty spaces', () => {
+    const text = 'The brown fox jumped over the lazy dog';
+
+    expect(highlightWords({ text, query: '    ' })).toEqual(
+      withKey([
+        {
+          text,
           match: false
         }
       ])
