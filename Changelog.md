@@ -1,3 +1,9 @@
+### v1.2.0
+
+---
+
+- Allow regular expression patterns to be used as a query
+
 ### v1.1.0
 
 ---

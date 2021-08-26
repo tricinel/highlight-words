@@ -171,6 +171,45 @@ describe('Split a string using a regular expression', () => {
     );
   });
 
+  test('Highlight multiple words', () => {
+    const text = 'The quick brown fox jumped over the lazy dog';
+    const query = /(quick|brown|fox)/;
+
+    // @ts-expect-error query should be string
+    expect(highlightWords({ text, query })).toEqual(
+      withKey([
+        {
+          text: 'The ',
+          match: false
+        },
+        {
+          text: 'quick',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'brown',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'fox',
+          match: true
+        },
+        {
+          text: ' jumped over the lazy dog',
+          match: false
+        }
+      ])
+    );
+  });
+
   test('Highlight all instances of a complex string', () => {
     const text =
       'com.mycompany.com.authorization.config com.mycompany.com.core com.mycompany.com.controllers.invoices';
@@ -243,7 +282,7 @@ describe('Sanity checks for empty strings and invalid cases', () => {
 });
 
 describe('Clipping', () => {
-  test('Use clipped text around the non-matches instead of the full text', () => {
+  test('Use clipped text around the non-matches instead of the full text when using a string', () => {
     const text = 'The brown fox jumped over the lazy dog';
     const query = 'over';
 
@@ -259,6 +298,36 @@ describe('Clipping', () => {
         },
         {
           text: ' the lazy ...',
+          match: false
+        }
+      ])
+    );
+  });
+
+  test('Use clipped text around the non-matches instead of the full text when using a regular expression', () => {
+    const text = 'The brown fox jumped over the lazy dog';
+    const query = '/(over|fox)/';
+
+    expect(highlightWords({ text, query, clipBy: 2 })).toEqual(
+      withKey([
+        {
+          text: '... brown ',
+          match: false
+        },
+        {
+          text: 'fox',
+          match: true
+        },
+        {
+          text: ' jumped ',
+          match: false
+        },
+        {
+          text: 'over',
+          match: true
+        },
+        {
+          text: ' the ...',
           match: false
         }
       ])

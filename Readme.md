@@ -50,12 +50,78 @@ console.log(chunks);
 
 [Play with this example on Code Sandbox.][sandbox-vanilla]
 
+Alternatively, you can also use a regular expression as part of the query string to search for.
+```js
+const chunks = highlightWords({
+  text: 'The quick brown fox jumped over the lazy dog',
+  query: '/(quick|brown|fox)/'
+});
+
+console.log(chunks);
+/*
+[
+  {
+    key: '62acb210-76dd-4682-b948-8d359a966dcb'
+    text: 'The ',
+    match: false
+  },
+  {
+    key: '69779adf-6d7c-45ec-ae9b-49d0cb292e28'
+    text: 'quick',
+    match: true
+  },
+  {
+    key: 'a72a6578-9111-4dca-a30d-676aaf7964c0'
+    text: ' ',
+    match: false
+  },
+  {
+    key: '24301852-f38b-4b54-b1fe-d8a82f47c49e'
+    text: 'brown',
+    match: true
+  },
+  {
+    key: 'a72a6578-9111-4dca-a30d-676aaf7964c0'
+    text: ' ',
+    match: false
+  },
+  {
+    key: '797b3bab-9244-451c-b246-4b03025b0691'
+    text: 'fox',
+    match: true
+  },
+  {
+    key: 'c86dbb8a-3e5f-4c05-a48c-684abbb517e8'
+    text: ' jumped over the lazy dog',
+    match: false
+  }
+]
+*/
+```
+
+> If using a regular expresssion, you can choose to either enclose the pattern in a string or not. In both cases, you need to format the regular expression properly, i.e. enclose the pattern between slashes, **and** you need to create capture groups, so that the match is remembered for later use.
+>
+> **Valid regular expression usage**
+> ```
+> query: '/(quick|brown|fox)/'
+> query: /(quick|brown|fox)/
+> ```
+>
+>**Invalid regular expression usage**
+> ```
+> query: '(quick|brown|fox)'
+> query: '/quick|brown|fox/'
+> query: /quick|brown|fox/
+> ```
+
 ### Options
 
 You can add a few options for the highlighter.
 
 - _clipBy_. If you want to clip the occurences that are not a match and display elipses around them. This can help to provide context around your matches.
-- _matchExactly_. By default, the highlighter will look for occurences of either words in your query. For example, if you have `brown fox` as your `query`, the highlighter will consider both `brown` and `fox` as separate matches.
+- _matchExactly_. By default, the highlighter will look for occurences of either words in your query. For example, if you have `brown fox` as your `query`, the highlighter will consider both `brown` and `fox` as separate matches. If set to `true`, then only the exact match of `brown fox` will be considered.
+
+> _matchExactly_ will have no effect if you're using a regular expression as your query, since you will have full control over the query in that case.
 
 ### Arguments
 
@@ -64,7 +130,7 @@ You can add a few options for the highlighter.
 | Property       | Type    | Required? | Description                                                   | Default |
 | :------------- | :------ | :-------: | :------------------------------------------------------------ | :------ |
 | `text`         | String  |     ✓     | The body of text you want to search in.                       | `empty` |
-| `query`        | String  |     ✓     | The word or words you want to search for.                     | `empty` |
+| `query`        | String  |     ✓     | The word(s) or regular expression you want to search for.     | `empty` |
 | `clipBy`       | Number  |           | How many words do you want to clip from the non matches.      | `null`  |
 | `matchExactly` | Boolean |           | Should we match the complete query or individual words in it? | `false` |
 
