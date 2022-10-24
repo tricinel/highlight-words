@@ -1,3 +1,9 @@
+### v1.2.1
+
+---
+
+- Fix regex when searching for string with two or more spaces (fixes #25)
+
 ### v1.2.0
 
 ---
