@@ -5,6 +5,13 @@ import type { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
 const escapeRegexp = (term: string): string =>
   term.replace(/[|\\{}()[\]^$+*?.-]/g, (char: string) => `\\${char}`);
 
+const termsToRegExpString = (terms: string): string => {
+  return terms
+    .replace(/\s{2,}/g, ' ')
+    .split(' ')
+    .join('|');
+};
+
 const regexpQuery = ({
   terms,
   matchExactly = false
@@ -14,7 +21,7 @@ const regexpQuery = ({
   }
 
   const escapedTerms = escapeRegexp(terms.trim());
-  return `(${matchExactly ? escapedTerms : escapedTerms.split(' ').join('|')})`;
+  return `(${matchExactly ? escapedTerms : termsToRegExpString(escapedTerms)})`;
 };
 
 const buildRegexp = ({

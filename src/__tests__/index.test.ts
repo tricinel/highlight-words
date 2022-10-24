@@ -210,6 +210,52 @@ describe('Split a string using a regular expression', () => {
     );
   });
 
+  test('Highlight multiple words where there are two or more consecutive spaces in the string', () => {
+    const text = 'The quick brown fox jumped over the lazy dog';
+    const query = 'quick  brown fox   jumped';
+
+    expect(highlightWords({ text, query })).toEqual(
+      withKey([
+        {
+          text: 'The ',
+          match: false
+        },
+        {
+          text: 'quick',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'brown',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'fox',
+          match: true
+        },
+        {
+          text: ' ',
+          match: false
+        },
+        {
+          text: 'jumped',
+          match: true
+        },
+        {
+          text: ' over the lazy dog',
+          match: false
+        }
+      ])
+    );
+  });
+
   test('Highlight all instances of a complex string', () => {
     const text =
       'com.mycompany.com.authorization.config com.mycompany.com.core com.mycompany.com.controllers.invoices';
@@ -370,6 +416,46 @@ describe('Exact matching', () => {
       withKey([
         {
           text: 'The brown fox jumped over the lazy dog',
+          match: false
+        }
+      ])
+    );
+  });
+
+  test('Split a string and match exactly the search term where there are two or more consecutive spaces in the string', () => {
+    expect(
+      highlightWords({
+        text: 'The quick brown fox jumped over the lazy dog',
+        query: 'quick  brown',
+        matchExactly: true
+      })
+    ).toEqual(
+      withKey([
+        {
+          text: 'The quick brown fox jumped over the lazy dog',
+          match: false
+        }
+      ])
+    );
+
+    expect(
+      highlightWords({
+        text: 'The quick  brown fox jumped over the lazy dog',
+        query: 'quick  brown fox',
+        matchExactly: true
+      })
+    ).toEqual(
+      withKey([
+        {
+          text: 'The ',
+          match: false
+        },
+        {
+          text: 'quick  brown fox',
+          match: true
+        },
+        {
+          text: ' jumped over the lazy dog',
           match: false
         }
       ])

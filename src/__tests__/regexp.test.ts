@@ -45,6 +45,21 @@ describe('Create a string to be used as a regular expression', () => {
     expect(regexpQuery({ terms: ' fox' })).toEqual('(fox)');
     expect(regexpQuery({ terms: ' fox ' })).toEqual('(fox)');
   });
+
+  test('Create a multi word regexp with multiple spaces in the middle', () => {
+    expect(regexpQuery({ terms: 'quick  brown' })).toEqual('(quick|brown)');
+    expect(regexpQuery({ terms: 'quick   brown' })).toEqual('(quick|brown)');
+    expect(regexpQuery({ terms: 'quick    brown' })).toEqual('(quick|brown)');
+    expect(regexpQuery({ terms: 'quick    brown fox' })).toEqual(
+      '(quick|brown|fox)'
+    );
+    expect(regexpQuery({ terms: 'quick    brown  fox' })).toEqual(
+      '(quick|brown|fox)'
+    );
+    expect(regexpQuery({ terms: 'quick    brown   fox' })).toEqual(
+      '(quick|brown|fox)'
+    );
+  });
 });
 
 describe('Build the regular expression', () => {
