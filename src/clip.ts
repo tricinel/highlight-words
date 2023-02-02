@@ -1,8 +1,10 @@
 /* eslint complexity: ["error", { "max": 12 }] */
 import type { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
 
-const hasProp = <T>(prop: string) => (obj: T) =>
-  obj !== null && typeof obj !== 'undefined' && prop in obj;
+const hasProp =
+  <T>(prop: string) =>
+  (obj: T) =>
+    obj !== null && typeof obj === 'object' && prop in obj;
 const hasMatch = hasProp<HighlightWords.Chunk>('match');
 
 const chunkExists = (
