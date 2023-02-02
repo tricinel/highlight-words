@@ -1,7 +1,7 @@
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 
-const pkgName = require('./package.json').name;
+const pkgName = 'highlight-words';
 
 const ext = (format) =>
   format === 'dts' ? 'd.ts' : format === 'cjs' ? 'js' : 'mjs';

@@ -14,8 +14,7 @@ module.exports = {
     'frontwerk-typescript',
     'plugin:import/typescript',
     'plugin:jest/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+    'prettier'
   ],
   rules: {
     '@typescript-eslint/no-unsafe-assignment': 'off', // This is too new as of this commit
