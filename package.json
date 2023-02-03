@@ -1,6 +1,6 @@
 {
   "name": "highlight-words",
-  "version": "1.2.2-beta.0",
+  "version": "1.2.2-beta.1",
   "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
   "engines": {
     "node": ">= 16",
@@ -36,7 +36,6 @@
   "module": "dist/highlight-words.mjs",
   "exports": {
     ".": {
-      "types": "./dist/highlight-words.d.ts",
       "require": "./dist/highlight-words.js",
       "default": "./dist/highlight-words.mjs"
     }
