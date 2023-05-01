@@ -1,16 +1,16 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.1.0
+  node: circleci/node@5.1.0
 jobs:
   run-unit-tests:
     executor:
       name: node/default
+      tag: '18.16'
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
+      - node/install-packages
       - run:
-          command: yarn run test -u --maxWorkers=1 --maxConcurrency=1 --silent
+          command: npm run test -u --maxWorkers=1 --maxConcurrency=1 --silent
           name: Run tests
 workflows:
   node-tests:
