@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  setup:
+  run-unit-tests:
     docker:
       - image: node:18
     steps:
