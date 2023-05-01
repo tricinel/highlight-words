@@ -23,20 +23,10 @@ jobs:
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - node_modules
-  run-unit-tests:
-    docker:
-      - image: node:18
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore pnpm package cache
-          keys:
-            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
           command: pnpm test -u --maxWorkers=1 --maxConcurrency=1 --silent
           name: Run tests
 workflows:
   node-tests:
     jobs:
-      - setup
       - run-unit-tests
