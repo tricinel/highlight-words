@@ -1,18 +1,42 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.1.0
 jobs:
-  run-unit-tests:
-    executor:
-      name: node/default
-      tag: '18.16'
+  setup:
+    docker:
+      - image: node:18
     steps:
       - checkout
-      - node/install-packages
+      - restore_cache:
+          name: Restore pnpm package cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
-          command: npm run test -u --maxWorkers=1 --maxConcurrency=1 --silent
+          name: Install pnpm package manager
+          command: |
+            corepack enable
+            corepack prepare pnpm@latest-8 --activate
+      - run:
+          name: Install Dependencies
+          command: |
+            pnpm install
+      - save_cache:
+          name: Save pnpm package cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - node_modules
+  run-unit-tests:
+    docker:
+      - image: node:18
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore pnpm package cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          command: pnpm test -u --maxWorkers=1 --maxConcurrency=1 --silent
           name: Run tests
 workflows:
   node-tests:
     jobs:
+      - setup
       - run-unit-tests
