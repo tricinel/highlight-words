@@ -1,3 +1,9 @@
+### v1.2.2
+
+---
+
+- Fix module resolution for Node16 (fixes #30)
+
 ### v1.2.1
 
 ---
