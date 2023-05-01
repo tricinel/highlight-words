@@ -24,7 +24,7 @@ jobs:
           paths:
             - node_modules
       - run:
-          command: pnpm test -u --maxWorkers=1 --maxConcurrency=1 --silent
+          command: pnpm test
           name: Run tests
 workflows:
   node-tests:
