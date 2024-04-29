@@ -37,7 +37,8 @@
   "exports": {
     ".": {
       "require": "./dist/highlight-words.js",
-      "default": "./dist/highlight-words.mjs"
+      "default": "./dist/highlight-words.mjs",
+      "types": "./dist/highlight-words.d.ts"
     }
   },
   "scripts": {
