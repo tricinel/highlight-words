@@ -7,7 +7,7 @@ Give it a piece of text and a search query, and it splits it into chunks separat
 ## Installation
 
 ```
-yarn add highlight-words
+pnpm add highlight-words
 ```
 
 ```

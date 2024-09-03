@@ -4,15 +4,15 @@
     "baseUrl": "./",
     "outDir": "./dist",
     "sourceMap": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "es2020",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2015", "dom"]
+    "lib": ["es2020", "dom"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

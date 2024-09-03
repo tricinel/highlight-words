@@ -1,5 +1,5 @@
 /* eslint complexity: ["error", { "max": 12 }] */
-import type { HighlightWords } from '.'; // eslint-disable-line import/no-cycle
+import type { HighlightWords } from '.';
 
 const hasProp =
   <T>(prop: string) =>

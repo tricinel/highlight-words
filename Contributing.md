@@ -10,7 +10,7 @@ of people like you. ❤️**
 ## Project setup
 
 1. Fork and clone the repo
-2. `$ yarn install` to install dependencies
+2. `$ pnpm install` to install dependencies
 3. Create a branch for your PR
 
 > Tip: Keep your `master` branch pointing at the original repository and make
@@ -33,13 +33,10 @@ of people like you. ❤️**
 Please make sure to run the tests before you commit your changes, as well as do any linting, formatting and typechecking. You can manually do this like so:
 
 ```sh
-yarn test
-yarn lint
-yarn format
-yarn typecheck
+pnpm validate
 ```
 
-We're using `husky` to run these commands on the pre-push hook anyway :)
+We're using `lefthook` to run these commands on the pre-push hook anyway :)
 
 # Filing issues
 

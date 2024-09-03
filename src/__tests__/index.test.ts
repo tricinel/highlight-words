@@ -1,10 +1,15 @@
+import { describe, expect, test, vi } from 'vitest';
 import highlightWords from '..';
 import type { HighlightWords } from '..';
 
-jest.mock('../uid', () => () => '1');
+vi.mock('../uid', () => {
+  return {
+    default: () => '1'
+  };
+});
 
-type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>; // eslint-disable-line @typescript-eslint/no-type-alias
-type ReadonlyKeylessChunk = Readonly<KeylessChunk>; // eslint-disable-line @typescript-eslint/no-type-alias
+type KeylessChunk = Omit<HighlightWords.Chunk, 'key'>;
+type ReadonlyKeylessChunk = Readonly<KeylessChunk>;
 
 // const's add the same key to all the chunks
 const withKey = (
@@ -141,7 +146,6 @@ describe('Split a string using a regular expression', () => {
 
   test('Highlight all the words', () => {
     const text = 'The brown fox';
-    // eslint-disable-next-line no-useless-escape, prettier/prettier
     const query = /(\w+)/;
 
     // @ts-expect-error query should be string

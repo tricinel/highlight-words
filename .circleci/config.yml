@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   run-unit-tests:
     docker:
-      - image: node:18
+      - image: node:20
     steps:
       - checkout
       - restore_cache:
@@ -13,7 +13,7 @@ jobs:
           name: Install pnpm package manager
           command: |
             corepack enable
-            corepack prepare pnpm@latest-8 --activate
+            corepack prepare pnpm@latest-9 --activate
       - run:
           name: Install Dependencies
           command: |
@@ -24,7 +24,7 @@ jobs:
           paths:
             - node_modules
       - run:
-          command: pnpm test
+          command: pnpm test:unit
           name: Run tests
 workflows:
   node-tests:

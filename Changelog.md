@@ -1,3 +1,19 @@
+### v2.0.0
+
+---
+
+#### Breaking changes:
+- Switch to Node20
+- Switch compile target from ES5 to ES2020
+
+#### Chores:
+- Switch from eslint and prettier to biome
+- Switch from jest to vitest
+- Switch from husky to lefthook
+- Remove yarn
+- Drop stryker mutation testing
+- Update all dependencies
+
 ### v1.2.2
 
 ---

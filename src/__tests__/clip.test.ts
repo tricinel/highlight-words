@@ -1,5 +1,6 @@
-import clip from '../clip';
+import { describe, expect, test } from 'vitest';
 import type { HighlightWords } from '..';
+import clip from '../clip';
 
 describe('Provide the textual context around the matches', () => {
   test("It leaves the chunk alone if it's a match", () => {

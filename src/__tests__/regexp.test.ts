@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import buildRegexp, { regexpQuery } from '../regexp';
 
 describe('Create a string to be used as a regular expression', () => {
@@ -84,19 +85,19 @@ describe('Build the regular expression', () => {
       // @ts-expect-error terms should be string
       buildRegexp({});
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Expected terms to be either a string or a RegExp!"`
+      `[TypeError: Expected terms to be either a string or a RegExp!]`
     );
     expect(() => {
       // @ts-expect-error terms should be string
       buildRegexp({ terms: [] });
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Expected terms to be either a string or a RegExp!"`
+      `[TypeError: Expected terms to be either a string or a RegExp!]`
     );
     expect(() => {
       // @ts-expect-error terms should be string
       buildRegexp(2);
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Expected terms to be either a string or a RegExp!"`
+      `[TypeError: Expected terms to be either a string or a RegExp!]`
     );
   });
 });

@@ -1,0 +1,18 @@
+pre-commit:
+  parallel: true
+  skip:
+    - merge
+    - rebase
+  commands:
+    check:
+      glob: "*.{js,ts,json}"
+      run: npx @biomejs/biome check --write --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+    types:
+      glob: "*.ts"
+      run: npx tsc-files --noEmit
+
+pre-push:
+  commands:
+    test:
+      run: npm run test:unit

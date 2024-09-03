@@ -1,8 +1,0 @@
-{
-  "packageManager": "yarn",
-  "reporters": ["clear-text", "progress"],
-  "testRunner": "jest",
-  "coverageAnalysis": "off",
-  "tsconfigFile": "tsconfig.json",
-  "mutate": ["src/**/*.ts", "!src/uid.ts", "!src/**/*.test.ts"]
-}

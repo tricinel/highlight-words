@@ -9,10 +9,10 @@ const ext = (format) =>
   format === 'dts'
     ? 'd.ts'
     : format === 'dmts'
-    ? 'd.mts'
-    : format === 'cjs'
-    ? 'js'
-    : 'mjs';
+      ? 'd.mts'
+      : format === 'cjs'
+        ? 'js'
+        : 'mjs';
 
 function bundle(format, production = false) {
   return {

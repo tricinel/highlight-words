@@ -1,8 +1,7 @@
+import clip from './clip';
+import buildRegexp from './regexp';
 import uid from './uid';
-import buildRegexp from './regexp'; // eslint-disable-line import/no-cycle
-import clip from './clip'; // eslint-disable-line import/no-cycle
 
-/* eslint-disable import/no-unused-modules */
 declare namespace HighlightWords {
   export interface Chunk {
     key: string;
@@ -63,7 +62,7 @@ const highlightWords = ({
 
   const searchRegexp = buildRegexp({ terms: query, matchExactly });
 
-  type ReadonlyChunk = Readonly<HighlightWords.Chunk>; // eslint-disable-line @typescript-eslint/no-type-alias
+  type ReadonlyChunk = Readonly<HighlightWords.Chunk>;
 
   return text
     .split(searchRegexp) // Split the entire thing into an array of matches and non-matches
