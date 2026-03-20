@@ -2,38 +2,29 @@
   "name": "highlight-words",
   "version": "2.0.0",
   "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
-  "engines": {
-    "node": ">= 20",
-    "npm": ">= 9"
+  "keywords": [
+    "highlight",
+    "regex",
+    "search",
+    "string"
+  ],
+  "homepage": "https://github.com/tricinel/highlight-words#readme",
+  "bugs": {
+    "url": "https://github.com/tricinel/highlight-words/issues"
   },
+  "license": "MIT",
+  "author": "Bogdan Lazar",
   "repository": {
     "type": "git",
     "url": "https://github.com/tricinel/highlight-words.git"
   },
-  "bugs": {
-    "url": "https://github.com/tricinel/highlight-words/issues"
-  },
-  "homepage": "https://github.com/tricinel/highlight-words#readme",
-  "author": "Bogdan Lazar",
-  "license": "MIT",
-  "keywords": [
-    "string",
-    "search",
-    "highlight",
-    "regex"
-  ],
   "files": [
     "dist"
   ],
-  "eslintIgnore": [
-    "node_modules",
-    "dist",
-    "coverage"
-  ],
   "type": "commonjs",
-  "typings": "dist/highlight-words.d.ts",
   "main": "dist/highlight-words.js",
   "module": "dist/highlight-words.mjs",
+  "typings": "dist/highlight-words.d.ts",
   "exports": {
     ".": {
       "require": "./dist/highlight-words.js",
@@ -46,20 +37,22 @@
     "build": "rollup -c",
     "watch": "rollup -cw",
     "typecheck": "tsc --noEmit",
-    "format": "biome format .",
-    "format:write": "biome format --write .",
-    "lint": "biome lint .",
+    "format": "oxfmt --check .",
+    "format:write": "oxfmt --write .",
+    "lint": "oxlint -c .oxlintrc.json .",
     "test:unit": "vitest run",
     "test:unit:dev": "vitest",
     "validate": "npm-run-all typecheck lint format test:unit",
     "prepublishOnly": "npm-run-all validate format:write build"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@types/node": "^25.5.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lefthook": "^1.7.15",
     "npm-run-all": "^4.1.5",
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0",
     "rimraf": "^6.0.1",
     "rollup": "^4.21.2",
     "rollup-plugin-dts": "^6.1.1",
@@ -68,5 +61,9 @@
     "typescript": "^5.5.4",
     "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^2.0.5"
+  },
+  "engines": {
+    "node": ">= 20",
+    "npm": ">= 9"
   }
 }

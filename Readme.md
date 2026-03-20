@@ -51,6 +51,7 @@ console.log(chunks);
 [Play with this example on Code Sandbox.][sandbox-vanilla]
 
 Alternatively, you can also use a regular expression as part of the query string to search for.
+
 ```js
 const chunks = highlightWords({
   text: 'The quick brown fox jumped over the lazy dog',
@@ -102,12 +103,14 @@ console.log(chunks);
 > If using a regular expresssion, you can choose to either enclose the pattern in a string or not. In both cases, you need to format the regular expression properly, i.e. enclose the pattern between slashes, **and** you need to create capture groups, so that the match is remembered for later use.
 >
 > **Valid regular expression usage**
+>
 > ```
 > query: '/(quick|brown|fox)/'
 > query: /(quick|brown|fox)/
 > ```
 >
->**Invalid regular expression usage**
+> **Invalid regular expression usage**
+>
 > ```
 > query: '(quick|brown|fox)'
 > query: '/quick|brown|fox/'

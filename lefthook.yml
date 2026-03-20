@@ -4,12 +4,16 @@ pre-commit:
     - merge
     - rebase
   commands:
-    check:
-      glob: "*.{js,ts,json}"
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched {staged_files}
+    format:
+      glob: '*.{js,ts,json,md,yml,yaml}'
+      run: pnpm -s exec oxfmt --write --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
-    types:
-      glob: "*.ts"
+    lint:
+      glob: '*.{js,ts}'
+      run: pnpm -s exec oxlint -c .oxlintrc.json --fix {staged_files}
+      stage_fixed: true
+    typecheck:
+      glob: '*.ts'
       run: npx tsc-files --noEmit
 
 pre-push:
