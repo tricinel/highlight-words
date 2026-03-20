@@ -1,11 +1,5 @@
 name: CI
 
-inputs:
-  node-version:
-    required: false
-    description: Node version for setup-node
-    default: 22.x
-
 on:
   push:
     branches: [main]
