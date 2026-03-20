@@ -43,9 +43,6 @@ export default defineConfig(() => {
           exports: 'named'
         }
       }
-    },
-    test: {
-      include: ['./__tests__/src/*.test.ts']
     }
   };
 });
