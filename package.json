@@ -1,6 +1,6 @@
 {
   "name": "highlight-words",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
   "keywords": [
     "highlight",
@@ -40,9 +40,15 @@
     "format": "oxfmt --check .",
     "format:write": "oxfmt --write .",
     "lint": "oxlint -c .oxlintrc.json .",
-    "test:unit": "vitest run",
-    "test:unit:dev": "vitest",
-    "validate": "npm-run-all typecheck lint format test:unit",
+    "test:dev": "vitest run",
+    "test:dev:watch": "vitest",
+    "test:dist": "vitest run -c vitest.dist.config.mts",
+    "test": "npm-run-all -p test:dev test:dist",
+    "build:dist:normal": "vite build",
+    "build:dist:min": "cross-env MINIFY=true vite build",
+    "build:dist": "npm-run-all prebuild build:dist:normal build:dist:min",
+    "validate": "npm-run-all typecheck lint format test",
+    "pretest:dist": "npm-run-all build:dist",
     "prepublishOnly": "npm-run-all validate format:write build"
   },
   "devDependencies": {

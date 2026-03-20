@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import buildRegexp, { regexpQuery } from '../regexp';
+import buildRegexp, { regexpQuery } from '../../src/regexp';
 
 describe('Create a string to be used as a regular expression', () => {
   test('Create an empty capturing group when the terms is an empty string', () => {

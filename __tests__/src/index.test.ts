@@ -1,8 +1,8 @@
 import { describe, expect, test, vi } from 'vitest';
-import highlightWords from '..';
-import type { HighlightWords } from '..';
+import highlightWords from '../../src/index';
+import type { HighlightWords } from '../../src/index';
 
-vi.mock('../uid', () => {
+vi.mock('../../src/uid', () => {
   return {
     default: () => '1'
   };
