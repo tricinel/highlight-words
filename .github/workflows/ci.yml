@@ -23,7 +23,7 @@ jobs:
           persist-credentials: false
 
       - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+        uses: pnpm/action-setup@903f9c1a6ebcba6cf41d87230be49611ac97822e
         with:
           version: latest
 
