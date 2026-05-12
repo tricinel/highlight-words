@@ -1,0 +1,5 @@
+minimumReleaseAge: 10080 # 7 days in minutes; needed because pnpm up is different than pnpm i
+blockExoticSubdeps: true # Similar to .npmrc's allow-git setting
+
+allowBuilds:
+  leftfhook: true
