@@ -67,14 +67,17 @@ const highlightWords = ({
   return text
     .split(searchRegexp) // Split the entire thing into an array of matches and non-matches
     .filter(hasLength) // Filter any matches that have the text with length of 0
-    .map((str) => ({
-      // Compose the object for a match
-      key: uid(),
-      text: str,
-      match: matchExactly
-        ? str.toLowerCase() === safeQuery.toLowerCase()
-        : searchRegexp.test(str)
-    }))
+    .map((str) => {
+      searchRegexp.lastIndex = 0;
+      return {
+        // Compose the object for a match
+        key: uid(),
+        text: str,
+        match: matchExactly
+          ? str.toLowerCase() === safeQuery.toLowerCase()
+          : searchRegexp.test(str)
+      };
+    })
     .map((chunk: ReadonlyChunk, index, chunks: readonly ReadonlyChunk[]) => ({
       // For each chunk, clip the text if needed
       ...chunk, // All the props first

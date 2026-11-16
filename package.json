@@ -1,6 +1,6 @@
 {
   "name": "highlight-words",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Split a piece text into multiple chunks based on a search query, allowing you to highlight the matches.",
   "keywords": [
     "highlight",

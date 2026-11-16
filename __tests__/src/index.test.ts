@@ -90,6 +90,24 @@ describe('Split a string using another string', () => {
     );
   });
 
+  test('Adjacent matches are all marked as matches', () => {
+    expect(highlightWords({ text: 'banana', query: 'an' })).toEqual(
+      withKey([
+        { text: 'b', match: false },
+        { text: 'an', match: true },
+        { text: 'an', match: true },
+        { text: 'a', match: false }
+      ])
+    );
+    expect(highlightWords({ text: 'foofoofoo', query: 'foo' })).toEqual(
+      withKey([
+        { text: 'foo', match: true },
+        { text: 'foo', match: true },
+        { text: 'foo', match: true }
+      ])
+    );
+  });
+
   test('Two matches found in the text', () => {
     const text = 'The cute brown fox jumped over the cute lazy dog';
     const query = 'cute';
@@ -122,6 +140,18 @@ describe('Split a string using another string', () => {
 });
 
 describe('Split a string using a regular expression', () => {
+  test.each(['/(foo)/g', '/(foo)/y', '/(foo)/'])(
+    'Marks adjacent matches for regex query %s',
+    (query) => {
+      expect(highlightWords({ text: 'foofoo', query })).toEqual(
+        withKey([
+          { text: 'foo', match: true },
+          { text: 'foo', match: true }
+        ])
+      );
+    }
+  );
+
   test('Find a match for a specific word', () => {
     const text = 'The brown fox jumped over the lazy dog';
     const query = '/(over)/';
@@ -386,6 +416,17 @@ describe('Clipping', () => {
 });
 
 describe('Exact matching', () => {
+  test('Marks adjacent exact matches', () => {
+    expect(
+      highlightWords({ text: 'foofoo', query: 'foo', matchExactly: true })
+    ).toEqual(
+      withKey([
+        { text: 'foo', match: true },
+        { text: 'foo', match: true }
+      ])
+    );
+  });
+
   test('Split a string and match all individual words', () => {
     const text = 'The brown fox jumped over the lazy dog';
     const query = 'brown dog';

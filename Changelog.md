@@ -1,3 +1,9 @@
+### v2.1.1
+
+---
+
+- Fix adjacent matches being marked as non-matches (fixes #76)
+
 ### v2.1.0
 
 ---
